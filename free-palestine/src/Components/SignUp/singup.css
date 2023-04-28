@@ -1,0 +1,18 @@
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-submit {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+}
