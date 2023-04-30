@@ -2,24 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const AllBlogs = ({ blog }) => {
-  const {
-    _id,
-    index,
-    balance,
-    profileImage,
-    age,
-    name,
-    gender,
-    email,
-    phone,
-    address,
-    bio,
-    blogImaag,
-    blogTitle,
-    tags,
-    pubsishDay,
-    socail,
-  } = blog;
+  const { _id, profileImage, name, blogImaag, blogTitle, tags, pubsishDay } =
+    blog;
   return (
     <div
       style={{

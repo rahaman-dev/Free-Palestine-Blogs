@@ -1,9 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const { user, loginUser, mailVerification } = useContext(AuthContext);
   const [showPass, setShowPass] = useState("password");
   const [error, setError] = useState();
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
@@ -11,6 +19,28 @@ const Login = () => {
     const password = event.target.password.value;
     event.target.reset("");
     setError("");
+
+    loginUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        mailVerification(user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+
+    mailVerification(user)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+    // toast("Please Verify your email!");
+    toast("Please Verify your email!");
   };
 
   const handleShowPass = () => {
@@ -87,7 +117,7 @@ const Login = () => {
           }}
           type="submit"
         >
-          Sign Up
+          Login
         </button>
       </form>
       <div style={{ marginTop: "10px" }}>
@@ -102,6 +132,7 @@ const Login = () => {
           Sign Up
         </Link>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

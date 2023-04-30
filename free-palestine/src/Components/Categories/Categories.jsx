@@ -1,10 +1,11 @@
 import React from "react";
-import LeftSideBar from "./LeftSideBar/LeftSideBar";
 import { useLoaderData } from "react-router-dom";
-import CategoryCart from "../Categories/CategoryCart";
+import CategoryCart from "./CategoryCart";
+import LeftSideBar from "../Home/LeftSideBar/LeftSideBar";
 
-const Home = () => {
+const Categories = () => {
   const loadData = useLoaderData();
+
   return (
     <div
       style={{
@@ -15,12 +16,11 @@ const Home = () => {
       <div style={{ backgroundColor: "#ffe0b3", width: "15%" }}>
         <LeftSideBar></LeftSideBar>
       </div>
-      <div style={{ width: "70%" }}>
-        <div>
-          {loadData.map((n, idx) => (
-            <CategoryCart key={idx} data={n}></CategoryCart>
-          ))}
-        </div>
+      <div>
+        {" "}
+        {loadData.map((n, idx) => (
+          <CategoryCart key={idx} data={n}></CategoryCart>
+        ))}
       </div>
       <div style={{ backgroundColor: "#ffe0b3", width: "15%" }}>
         Right Side Bar
@@ -29,4 +29,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Categories;

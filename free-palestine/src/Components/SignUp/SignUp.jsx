@@ -1,8 +1,12 @@
 import React, { useContext, useState } from "react";
 import "./singup.css";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
+  const { createUser, mailVerification } = useContext(AuthContext);
   const [error, setError] = useState();
   const [showPass, setShowPass] = useState("password");
   const [name, setName] = useState("");
@@ -35,6 +39,17 @@ const SignUp = () => {
       setError("password must me have on spacial character");
       return;
     }
+
+    createUser(email, password)
+      .then((result) => {
+        const createdUser = result.user;
+        mailVerification(createdUser);
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    toast("Thanks for your Registered");
   };
 
   const handleShowPass = () => {
@@ -153,6 +168,7 @@ const SignUp = () => {
           Login
         </Link>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
